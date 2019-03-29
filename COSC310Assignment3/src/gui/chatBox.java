@@ -118,13 +118,13 @@ public class chatBox extends JFrame {
 
 	}
 
-	public static void main(String args[]) {
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				chatBox chat = new chatBox();
-				System.out.println(chat.readInput());
-			}
-		});
-	}
+//	public static void main(String args[]) {
+//		SwingUtilities.invokeLater(new Runnable() {
+//			public void run() {
+//				chatBox chat = new chatBox();
+//				System.out.println(chat.readInput());
+//			}
+//		});
+//	}
 
 }
