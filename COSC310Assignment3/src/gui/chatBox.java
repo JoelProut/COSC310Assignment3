@@ -107,11 +107,11 @@ public class chatBox extends JFrame {
 	}
 
 	public String readInput() {
-		int i = textArea.getLineCount() - 1;
+		int i = textArea.getLineCount() - 1; // empty box counts as a line for some reason
 		if (i >= 1) {
 			String temp = textArea.getText();
 			String[] lines = temp.split("\n");
-			return lines[i-1];
+			return lines[i-1] + " " + Integer.toString(i);
 		} else {
 			return "null";
 		}
