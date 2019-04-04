@@ -122,7 +122,6 @@ public class chatBox extends JFrame {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				chatBox chat = new chatBox();
-				System.out.println(chat.readInput());
 			}
 		});
 	}
