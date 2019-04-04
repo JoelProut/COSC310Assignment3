@@ -3,15 +3,25 @@ package gui;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+
 import javax.swing.event.*;
 import javax.swing.text.DefaultCaret;
+import languageProcessing.*;
 
 public class chatBox extends JFrame {
+	ArrayList<String> words;
+	ArrayList<String> pos;
+	ArrayList<String> ne;
 
 	JPanel jPanel;
 	JTextField textField;
 	JTextArea textArea;
 	JLabel jLabel;
+	
+	public String input;
+	public int i;
+	public CoreNLP coreNLP;
 
 	public chatBox() {
 		buildChatBox();
@@ -20,6 +30,7 @@ public class chatBox extends JFrame {
 	public void buildChatBox() {
 		setTitle("Thebo");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		i = 0;
 
 		// Create JPanel
 		jPanel = new JPanel();
@@ -35,7 +46,7 @@ public class chatBox extends JFrame {
 			}
 		};
 
-		// Timer to change between thinking and typing
+		// Timer to change between idle and typing
 		Timer timer = new Timer(1, listener);
 		timer.setInitialDelay(1000);
 
@@ -47,13 +58,20 @@ public class chatBox extends JFrame {
 				timer.stop();
 				if (k.getKeyCode() == KeyEvent.VK_ENTER) {
 					printToChat(textField.getText());
-					System.out.println(readInput());
+					//System.out.println(readInput());
 				}
 			}
 
 			@Override
 			public void keyReleased(KeyEvent k) {
 				timer.start();
+				if(k.getKeyCode() == KeyEvent.VK_ENTER) {
+					coreNLP = new CoreNLP(textField.getText());
+					words = coreNLP.words;
+					pos = coreNLP.partOfSpeach;
+					ne = coreNLP.namedEntity;
+					// chat logic?
+				}
 			}
 		};
 
@@ -93,30 +111,39 @@ public class chatBox extends JFrame {
 	}
 
 	public void botToChat(String s) {
-		textArea.append(s + "\n");
+		textArea.append("Thebo: " + s + "\n");
 	}
 
 	public void printToChat(String s) {
 		if (s.trim().isEmpty()) {
 			return;
 		} else {
-			textArea.append(s + "\n");
+			textArea.append("User: " + s + "\n");
 			textField.setText("");
 			jLabel.setText("Messege Sent");
 		}
 	}
 
-	public String readInput() {
-		int i = textArea.getLineCount() - 1; // empty box counts as a line for some reason
-		if (i >= 1) {
-			String temp = textArea.getText();
-			String[] lines = temp.split("\n");
-			return lines[i-1] + " " + Integer.toString(i);
-		} else {
-			return "null";
-		}
-
-	}
+//	public String readInput() {
+//		int i = textArea.getLineCount() - 1; // empty box counts as a line for some reason
+//		String input = "";
+//		if (i >= 1) {
+//			String temp = textArea.getText();
+//			String[] lines = temp.split("\n");
+//			String line =  lines[i-1];
+//			String[] temp2 = line.split(" ");
+//			for(int j = 1; j < temp2.length; j++) {
+//				if (j == 1)
+//						input = temp2[j];
+//				else
+//					input = input + " " + temp2[j];
+//			}
+//			return input;
+//		} else {
+//			return "null";
+//		}
+//
+//	}
 
 	public static void main(String args[]) {
 		SwingUtilities.invokeLater(new Runnable() {
