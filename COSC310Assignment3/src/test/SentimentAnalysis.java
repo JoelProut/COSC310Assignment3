@@ -1,4 +1,4 @@
-package languageProcessing;
+package test;
 
 import java.io.*;
 import java.util.*;
@@ -38,7 +38,7 @@ public class SentimentAnalysis {
 	
 	public static void main(String[] args) {
 		SentimentAnalysis sentiment = new SentimentAnalysis();
-		double i = sentiment.getSentiment("I really love cheesies.");
+		double i = sentiment.getSentiment("I really love cheesies. I really hate HVAC.");
 		System.out.println(i);
 	}
 

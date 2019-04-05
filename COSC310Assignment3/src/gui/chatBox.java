@@ -13,6 +13,7 @@ public class chatBox extends JFrame {
 	ArrayList<String> words;
 	ArrayList<String> pos;
 	ArrayList<String> ne;
+	int sentiment;
 
 	JPanel jPanel;
 	JTextField textField;
@@ -28,6 +29,7 @@ public class chatBox extends JFrame {
 	}
 
 	public void buildChatBox() {
+		CoreNLP coreNLP = new CoreNLP();
 		setTitle("Thebo");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		i = 0;
@@ -57,6 +59,7 @@ public class chatBox extends JFrame {
 				jLabel.setText("Typing");
 				timer.stop();
 				if (k.getKeyCode() == KeyEvent.VK_ENTER) {
+					input = textField.getText();
 					printToChat(textField.getText());
 					//System.out.println(readInput());
 				}
@@ -66,10 +69,14 @@ public class chatBox extends JFrame {
 			public void keyReleased(KeyEvent k) {
 				timer.start();
 				if(k.getKeyCode() == KeyEvent.VK_ENTER) {
-					coreNLP = new CoreNLP(textField.getText());
-					words = coreNLP.words;
-					pos = coreNLP.partOfSpeach;
-					ne = coreNLP.namedEntity;
+					words = coreNLP.getWords(input);
+					pos = coreNLP.getPOS(input);
+					ne = coreNLP.getNER(input);
+					sentiment = coreNLP.getSentiment(input);
+					System.out.println(words);
+					System.out.println(pos);
+					System.out.println(ne);
+					System.out.println(sentiment);
 					// chat logic?
 				}
 			}
