@@ -7,10 +7,6 @@
 	<classpathentry kind="lib" path="C:/Program Files/Java/commons-lang3-3.8.1/commons-lang3-3.8.1-sources.jar"/>
 	<classpathentry kind="lib" path="C:/Program Files/Java/commons-lang3-3.8.1/commons-lang3-3.8.1-tests.jar"/>
 	<classpathentry kind="lib" path="C:/Program Files/Java/commons-lang3-3.8.1/commons-lang3-3.8.1-test-sources.jar"/>
-	<classpathentry kind="lib" path="C:/Users/joelp/eclipse/ExternalLibraries/stanford-corenlp-full-2018-10-05/stanford-corenlp-3.9.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/joelp/eclipse/ExternalLibraries/stanford-corenlp-full-2018-10-05/stanford-corenlp-3.9.2-javadoc.jar"/>
-	<classpathentry kind="lib" path="C:/Users/joelp/eclipse/ExternalLibraries/stanford-corenlp-full-2018-10-05/stanford-corenlp-3.9.2-models.jar"/>
-	<classpathentry kind="lib" path="C:/Users/joelp/eclipse/ExternalLibraries/stanford-corenlp-full-2018-10-05/stanford-corenlp-3.9.2-sources.jar"/>
-	<classpathentry kind="lib" path="C:/Users/joelp/eclipse/ExternalLibraries/stanford-corenlp-full-2018-10-05/xom.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/ CoreNLP"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

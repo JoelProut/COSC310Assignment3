@@ -26,10 +26,11 @@ public class CoreNLP {
 		props = new Properties();
 		props.setProperty("annotators", "tokenize, ssplit, pos, lemma, ner, parse, dcoref");
 		StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
-		Annotation document = new Annotation(input);
+		Annotation document = new Annotation(input); // For annotation
 		pipeline.annotate(document);
-		List<CoreMap> sentences = document.get(CoreAnnotations.SentencesAnnotation.class);
-		for (CoreMap sentence : sentences) {
+		// POS and named entity
+		List<CoreMap> sentencesAnnotated = document.get(CoreAnnotations.SentencesAnnotation.class);
+		for (CoreMap sentence : sentencesAnnotated) {
 			for (CoreLabel token : sentence.get(CoreAnnotations.TokensAnnotation.class)) {
 				words.add(token.getString(CoreAnnotations.OriginalTextAnnotation.class));
 				partOfSpeach.add(token.get(CoreAnnotations.PartOfSpeechAnnotation.class));
@@ -40,7 +41,7 @@ public class CoreNLP {
 	}
 	
 	public static void main(String[] args) {
-		CoreNLP coreNLP = new CoreNLP("I love Ryley Jane");
+		CoreNLP coreNLP = new CoreNLP("I love Ryley Jane. I hate swiss cheese.");
 		ArrayList<String> words = coreNLP.words;
 		ArrayList<String> pos = coreNLP.partOfSpeach;
 		ArrayList<String> ne = coreNLP.namedEntity;
