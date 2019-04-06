@@ -37,3 +37,5 @@ The following image demenstrates and the output of an unexpected response throug
 ![image](https://user-images.githubusercontent.com/43254182/55666096-45733a80-57fe-11e9-8f2b-75e1b714158b.png)
 
 6) Sentiment analysis - Changes the response depending on the sentiment expresses. For example if the user is talking about school and the input returns a positive sentiment Thebo will ask something along the lines of "What do you like about school?" while if the sentiment was negative it would express sympathy.
+
+![image](https://user-images.githubusercontent.com/43254182/55666248-b4519300-5800-11e9-98a6-a69ffa618604.png)
