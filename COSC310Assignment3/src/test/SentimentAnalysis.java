@@ -27,7 +27,7 @@ public class SentimentAnalysis {
 		pipeline = new StanfordCoreNLP(props);
 	}
 	
-	public double getSentiment(String input) { // 0 = strongly negative, 4 = strongly positive
+	public double getSentiment(String input) {
 		Annotation annotation = pipeline.process(input);
 		for(CoreMap sentence: annotation.get(CoreAnnotations.SentencesAnnotation.class)) {
 			Tree tree = sentence.get(SentimentCoreAnnotations.SentimentAnnotatedTree.class);

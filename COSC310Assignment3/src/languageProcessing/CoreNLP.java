@@ -21,6 +21,11 @@ public class CoreNLP {
 	// recognition and POS tagging depending on the method.
 	private Properties props;
 	private StanfordCoreNLP pipeline;
+	public ArrayList<String> words;
+	public ArrayList<String> pos;
+	public ArrayList<String> ner;
+	public ArrayList<String> lemma;
+	public int sentiment;
 
 	public CoreNLP() {
 		props = new Properties();
@@ -29,67 +34,35 @@ public class CoreNLP {
 		
 	}
 	
-	public ArrayList<String> getWords(String input) {
-		Annotation document = new Annotation(input); // For annotation
-		ArrayList<String> words = new ArrayList<String>();
+	public void annotate(String input) {
+		words = new ArrayList<String>();
+		pos = new ArrayList<String>();
+		ner = new ArrayList<String>();
+		lemma = new ArrayList<String>();
+		Annotation document = new Annotation(input);
 		pipeline.annotate(document);
-		// POS and named entity
 		List<CoreMap> sentencesAnnotated = document.get(CoreAnnotations.SentencesAnnotation.class);
 		for (CoreMap sentence : sentencesAnnotated) {
+			Tree tree = sentence.get(SentimentCoreAnnotations.SentimentAnnotatedTree.class);
+			sentiment = RNNCoreAnnotations.getPredictedClass(tree);
 			for (CoreLabel token : sentence.get(CoreAnnotations.TokensAnnotation.class)) {
 				words.add(token.getString(CoreAnnotations.OriginalTextAnnotation.class));
+				pos.add(token.get(CoreAnnotations.PartOfSpeechAnnotation.class));
+				ner.add(token.getString(CoreAnnotations.CoarseNamedEntityTagAnnotation.class));
+				lemma.add(token.getString(CoreAnnotations.LemmaAnnotation.class));
 			}
 		}
-		return words;
-
 	}
 	
-	public ArrayList<String> getPOS(String input) {
-		Annotation document = new Annotation(input); // For annotation
-		ArrayList<String> partOfSpeach = new ArrayList<String>();
-		pipeline.annotate(document);
-		// POS and named entity
-		List<CoreMap> sentencesAnnotated = document.get(CoreAnnotations.SentencesAnnotation.class);
-		for (CoreMap sentence : sentencesAnnotated) {
-			for (CoreLabel token : sentence.get(CoreAnnotations.TokensAnnotation.class)) {
-				partOfSpeach.add(token.get(CoreAnnotations.PartOfSpeechAnnotation.class));
-			}
-		}
-		return partOfSpeach;
-
-	}
-	
-	public ArrayList<String> getNER(String input) {
-		Annotation document = new Annotation(input); // For annotation
-		ArrayList<String> namedEntity = new ArrayList<String>();
-		pipeline.annotate(document);
-		// POS and named entity
-		List<CoreMap> sentencesAnnotated = document.get(CoreAnnotations.SentencesAnnotation.class);
-		for (CoreMap sentence : sentencesAnnotated) {
-			for (CoreLabel token : sentence.get(CoreAnnotations.TokensAnnotation.class)) {
-				namedEntity.add(token.getString(CoreAnnotations.CoarseNamedEntityTagAnnotation.class));
-			}
-		}
-		return namedEntity;
-
-	}
-	
-	public int getSentiment(String input) { // 1 = negative, 2 = neutral, 3 = positive
-		Annotation annotation = pipeline.process(input);
-		for(CoreMap sentence: annotation.get(CoreAnnotations.SentencesAnnotation.class)) {
-			Tree tree = sentence.get(SentimentCoreAnnotations.SentimentAnnotatedTree.class);
-			return RNNCoreAnnotations.getPredictedClass(tree);
-		}
-		return -1;
-	}
 	
 	public static void main(String[] args) {
-		String input = "I despise Hitler.";
+		String input = "I really love cheese.";
 		CoreNLP coreNLP = new CoreNLP();
-		ArrayList<String> words = coreNLP.getWords(input);
-		ArrayList<String> pos = coreNLP.getPOS(input);
-		ArrayList<String> ne = coreNLP.getNER(input);
-		int i = coreNLP.getSentiment(input);
+		coreNLP.annotate(input);
+		ArrayList<String> words = coreNLP.words;;
+		ArrayList<String> pos = coreNLP.pos;
+		ArrayList<String> ne = coreNLP.ner;
+		int i = coreNLP.sentiment;
 		System.out.println(words);
 		System.out.println(pos);
 		System.out.println(ne);
