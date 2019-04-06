@@ -1,4 +1,4 @@
-# COSC310Assignment3
+# COSC310Assignment3 - Joel Prout
 
 # Summary
 Thebo is a therapy and companion chat bot that takes the users input and uses stanfords CoreNLP library to analysie the parts of speach, named entities, and sentiments to respond in an intellegent way. To run Thebo simple run the chatBox class located in the gui package
