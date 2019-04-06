@@ -54,7 +54,7 @@ public class Topic {
 					if(sentiment == 1 || sentiment == 0) {
 						output = "I'm sorry to hear that, do you struggle with time management?";
 					}else {
-						output = "Thats awesome " + name + ". I'm glad to hear it.";
+						output = "That sounds fun";
 					}
 				}else{
 					
