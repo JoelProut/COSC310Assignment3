@@ -16,8 +16,11 @@ The gui package contains the code for the graphical user interface of Thebo as w
 # Language Processing
 The languageProcessing package contains the code for implementing stanfords coreNLP library. It takes in a string and finds the Parts of Speach, Named Entitys, Lemmas, and the sentiment of the input.
 
-# Class Structure
+# Additions:
+1) Added a GUI to Thebo. the GUI improves the look of the application.
 
-![UML diagram](https://github.com/hmehain/COSC-310-Group-6/blob/master/chatbot%20UML%202.jpg)
-
-[WBS](https://docs.google.com/spreadsheets/d/1r-X-w9h50yBHoTPS1j0cAH8LC9jF8CfqRzDWSvb3xO8/edit?usp=sharing)
+2) Added an extra topic. Thebo can also act as a friend as well as a therapist if you just need someone to talk to. The user can switch back and forth between topics mid conversation.
+3) Unexpected Response - If thebo gets a response it wasnt expecting it checks the sentiment and parrots back part of your sentence expressing either sympathy, excitement or curiosity.
+4) POS tagging - Implemented POS tagging and recognition from stanfords CoreNLP library. Its used to extract specific parts of the sentence such as the nouns if it is asking about the user said.
+5) Named entity recognition - Implemented NER from stanfrords CoreNLP library. Used to get the users name, and in combination with sentiment analysis if the user expresses liking or disliking locations or people.
+6) Sentiment analysis - Changes the response depending on the sentiment expresses. For example if the user is talking about school and the input returns a positive sentiment Thebo will ask something along the lines of "What do you like about school?" while if the sentiment was negative it would express sympathy.
