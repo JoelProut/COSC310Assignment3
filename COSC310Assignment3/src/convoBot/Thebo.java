@@ -33,6 +33,7 @@ public class Thebo {
 				System.out.println(temp + ":" + i);
 				if(temp.toLowerCase().equals("person")) {
 					userName = words.get(i);
+					topic.setName(userName);
 
 				}
 			}

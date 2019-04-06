@@ -2,6 +2,8 @@ package topics;
 
 import java.util.ArrayList;
 
+import convoBot.Thebo;
+
 public class Topic {
 
 	public ArrayList<String> messages;
@@ -12,13 +14,15 @@ public class Topic {
 	public String mode;
 	public int topicRound;
 	public String output;
+	String name;
 	public int mood;
-
+	
 
 	public Topic() {
 		output = "";
 		topicRound = 0;
 		messages = new ArrayList<String>();
+		
 
 	}
 
@@ -46,8 +50,12 @@ public class Topic {
 					String noun = getNoun();
 					String adjective = getAdjective();
 					output = "I'm sorry to hear that " + noun + " has been so " + adjective + ". Is there anything you can do to make it easier?";
-				}else if(mood == 2) {
-					
+				}else if(mood == 2) { // Asking about  work / school
+					if(sentiment == 1 || sentiment == 0) {
+						output = "I'm sorry to hear that, do you struggle with time management?";
+					}else {
+						output = "Thats awesome " + name + ". I'm glad to hear it.";
+					}
 				}else{
 					
 				}
@@ -102,7 +110,7 @@ public class Topic {
 		if (mood == 1 || mood == 0) { // Mood is negative
 			output = "I'm sorry to hear that, whats wrong?";
 		} else if (mood == 2) { // Mood is neutral
-			output = "Cool beans, hows school going?";
+			output = "I see, how is your work or school life?";
 		} else if (mood == 3) { // Mood is good.
 			output = "I'm glad to hear you're feeling well! What do you do to keep busy?";
 		}
@@ -139,6 +147,10 @@ public class Topic {
 		}
 		return adjective;
 
+	}
+	
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }
