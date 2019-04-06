@@ -5,6 +5,7 @@ public class Patient {
 	private int age;
 	private String name;
 	private String gender;
+	private String location;
 	
 
 	public int getAge() {
@@ -32,6 +33,14 @@ public class Patient {
 	
 	public void setGender(String gender) {
 		this.gender = gender;
+	}
+	
+	public String getLocation() {
+		return location;
+	}
+	
+	public void setLocatio(String location) {
+		this.location = location;
 	}
 	
 }
