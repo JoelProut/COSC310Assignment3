@@ -7,31 +7,40 @@ import java.util.ArrayList;
 
 import javax.swing.event.*;
 import javax.swing.text.DefaultCaret;
+
+import convoBot.*;
 import languageProcessing.*;
+import topics.*;
 
 public class chatBox extends JFrame {
 	ArrayList<String> words;
 	ArrayList<String> pos;
-	ArrayList<String> ne;
+	ArrayList<String> ner;
+	ArrayList<String> lemma;
 	int sentiment;
+	int conversationRound;
 
 	JPanel jPanel;
-	JTextField textField;
+	public static JTextField textField;
 	JTextArea textArea;
 	JLabel jLabel;
 	
 	public String input;
 	public int i;
 	public CoreNLP coreNLP;
-
+	public Thebo thebo;
+	
 	public chatBox() {
 		buildChatBox();
+		botToChat("Hello, my name is Thebo! What's your name?");
 	}
 
 	public void buildChatBox() {
-		CoreNLP coreNLP = new CoreNLP();
+		coreNLP = new CoreNLP();
+		thebo = new Thebo();
 		setTitle("Thebo");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		conversationRound = 0;
 		i = 0;
 
 		// Create JPanel
@@ -69,15 +78,23 @@ public class chatBox extends JFrame {
 			public void keyReleased(KeyEvent k) {
 				timer.start();
 				if(k.getKeyCode() == KeyEvent.VK_ENTER) {
-					words = coreNLP.getWords(input);
-					pos = coreNLP.getPOS(input);
-					ne = coreNLP.getNER(input);
-					sentiment = coreNLP.getSentiment(input);
+					// First get the NLP analysis
+					coreNLP.annotate(input);
+					words = coreNLP.words;
+					pos = coreNLP.pos;
+					ner = coreNLP.ner;
+					lemma = coreNLP.lemma;
+					sentiment = coreNLP.sentiment;
+					// Chat bot logic
+					botToChat(thebo.chat(input, conversationRound, words, pos,ner,lemma, sentiment));
+					conversationRound = thebo.round;
+					// For trouble shooting
 					System.out.println(words);
 					System.out.println(pos);
-					System.out.println(ne);
+					System.out.println(ner);
+					System.out.println(lemma);
 					System.out.println(sentiment);
-					// chat logic?
+					System.out.println(conversationRound);
 				}
 			}
 		};
@@ -100,6 +117,7 @@ public class chatBox extends JFrame {
 		textArea = new JTextArea();
 		textArea.setCaret(caret);
 		textArea.setMargin(new Insets(5, 5, 5, 5));
+		textArea.setEditable(false);
 		jPanel.add(textField);
 		add(jPanel, BorderLayout.SOUTH);
 		JScrollPane scrollPane = new JScrollPane(textArea);
@@ -118,14 +136,14 @@ public class chatBox extends JFrame {
 	}
 
 	public void botToChat(String s) {
-		textArea.append("Thebo: " + s + "\n");
+		textArea.append("Thebo: " + s + "\n\n");
 	}
 
 	public void printToChat(String s) {
 		if (s.trim().isEmpty()) {
 			return;
 		} else {
-			textArea.append("User: " + s + "\n");
+			textArea.append("User: " + s + "\n\n");
 			textField.setText("");
 			jLabel.setText("Messege Sent");
 		}
