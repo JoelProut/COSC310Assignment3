@@ -28,9 +28,12 @@ The languageProcessing package contains the code for implementing stanfords core
 
 3) Unexpected Response - If thebo gets a response it wasnt expecting it checks the sentiment and parrots back part of your sentence expressing either sympathy, excitement or curiosity.
 
+4) POS tagging - Implemented POS tagging and recognition from stanfords CoreNLP library. Its used to extract specific parts of the sentence such as the nouns depending on what the user said.
+
+5) Named entity recognition - Implemented NER from stanfrords CoreNLP library. Used to get the users name, and in combination with sentiment analysis if the user expresses liking or disliking locations or people.
+
+The following image demenstrates and the output of an unexpected response through the use of POS tagging. The unexpectedResponse method finds verbs, adjectives, nouns, people and places to determine how to respond. Recognizing the users name is also done through Named entity recognition, which can also recognize location names and is used throughout the core response logic.
+
 ![image](https://user-images.githubusercontent.com/43254182/55666096-45733a80-57fe-11e9-8f2b-75e1b714158b.png)
 
-
-4) POS tagging - Implemented POS tagging and recognition from stanfords CoreNLP library. Its used to extract specific parts of the sentence such as the nouns if it is asking about the user said.
-5) Named entity recognition - Implemented NER from stanfrords CoreNLP library. Used to get the users name, and in combination with sentiment analysis if the user expresses liking or disliking locations or people.
 6) Sentiment analysis - Changes the response depending on the sentiment expresses. For example if the user is talking about school and the input returns a positive sentiment Thebo will ask something along the lines of "What do you like about school?" while if the sentiment was negative it would express sympathy.
