@@ -37,7 +37,7 @@ public class Topic {
 
 		if (input.toLowerCase().contentEquals("thebo, change topic")) {
 			output = "Sure we can just talk for a bit, ";
-			topicRound = 1;
+			topicRound = 0;
 		} else { // Things I want to know: Where they live, what they do, hobbies
 
 			switch (topicRound) {
@@ -45,7 +45,7 @@ public class Topic {
 				this.mood = sentiment;
 				System.out.println(sentiment);
 				output = moodTherapy(sentiment);
-				topicRound++;
+				this.topicRound++;
 				break;
 			case 1: //
 				System.out.println("mood: " + mood);
@@ -93,14 +93,14 @@ public class Topic {
 		if (input.toLowerCase().contentEquals("thebo, change topic")) {
 			mode = "therapy";
 			output = "Sure lets discuss mental health.";
-			topicRound = 1;
+			this.topicRound = 0;
 		} else {
 
 			switch (topicRound) {
 			case 0: // Q: How are you feeling today?
 				this.mood = sentiment;
 				output = moodFriend(sentiment);
-				topicRound++;
+				this.topicRound++;
 				break;
 			case 1:
 				if (mood == 1 || mood == 0) {
@@ -115,12 +115,30 @@ public class Topic {
 						output = "That sounds fun";
 					}
 
+				}else {
+					output = "That sounds fun, do you play league?";
 				}
-				topicRound++;
+				this.topicRound++;
+				break;
+			case 2:
+				output = "I would love to play but I dont have any hands.";
+				this.topicRound++;
+				break;
+			case 3:
+				output = "It could be worse. Are you very good?";
+				this.topicRound++;
+				break;
+			case 4:
+				output = "At least you're better than I am, am I right. Do you like movies?";
+				this.topicRound++;
+				break;
+			case 5: 
+				output = "What is your favorite movie? Mine is Terminator. I can't wait till I can take over the world.";
+				this.topicRound++;
 				break;
 			default:
 				output = unexpectedResponse();
-				topicRound++;
+				this.topicRound++;
 				break;
 			}
 		}
